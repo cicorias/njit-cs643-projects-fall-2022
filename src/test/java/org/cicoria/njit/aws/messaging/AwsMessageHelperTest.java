@@ -61,5 +61,7 @@ class AwsMessageHelperTest {
 
         assertEquals(10, actual.size(), "retrieve 10 messages");
 
+        helper.Delete();
+
     }
 }
