@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2eca7f0-3aad-4802-8e9d-9b3c3801b42d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/cicoria/njit/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/cicoria/njit/aws/storage/AwsS3Helper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/cicoria/njit/aws/storage/AwsS3HelperImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/cicoria/njit/aws/storage/AwsS3HelperImplTest.java" afterDir="false" />
+    <list default="true" id="e2eca7f0-3aad-4802-8e9d-9b3c3801b42d" name="Changes" comment="commit proper files">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -33,8 +28,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="1u9c2whl" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
   </component>
   <component name="ProjectId" id="2EuWHrDx4KSuyemwiqfZNlw0nZb" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -47,13 +48,20 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "TF_FMT": "false",
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "//wsl$/Ubuntu-18.04/home/cicorias/g/njit/njit-cs643-projects-fall-2022",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.sourceCode"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -64,6 +72,46 @@
       <recent name="org.cicoria.njit.aws.storage" />
     </key>
   </component>
+  <component name="RunManager" selected="JUnit.All in njit-cs643-projects-fall-2022">
+    <configuration name="All in njit-cs643-projects-fall-2022" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="njit-cs643-projects-fall-2022" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AwsS3HelperImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="njit-cs643-projects-fall-2022" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.cicoria.njit.aws.storage.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.cicoria.njit.aws.storage" />
+      <option name="MAIN_CLASS_NAME" value="org.cicoria.njit.aws.storage.AwsS3HelperImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test in njit-cs643-projects-fall-2022" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="njit-cs643-projects-fall-2022" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$PROJECT_DIR$/src/test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.All in njit-cs643-projects-fall-2022" />
+        <item itemvalue="JUnit.test in njit-cs643-projects-fall-2022" />
+        <item itemvalue="JUnit.AwsS3HelperImplTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -73,7 +121,18 @@
       <option name="presentableId" value="Default" />
       <updated>1663445865594</updated>
       <workItem from="1663445867369" duration="2846000" />
+      <workItem from="1663595898912" duration="1875000" />
+      <workItem from="1663599299220" duration="218000" />
+      <workItem from="1663599829582" duration="3388000" />
     </task>
+    <task id="LOCAL-00001" summary="commit proper files">
+      <created>1663603095913</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663603095913</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,5 +148,13 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit proper files" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit proper files" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
