@@ -12,6 +12,7 @@ import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 //https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/java/example_code/s3/src/main/java/aws/example/s3/ListObjects.java
+//https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code
 public class AwsS3HelperImpl implements AwsS3Helper {
     @Override
     public Map<String, String> getFiles(String bucket, String region) {

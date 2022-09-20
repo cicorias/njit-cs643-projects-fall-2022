@@ -2,15 +2,14 @@ package org.cicoria.njit.aws.messaging;
 
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.AmazonSQSException;
-import com.amazonaws.services.sqs.model.CreateQueueRequest;
-import com.amazonaws.services.sqs.model.CreateQueueResult;
-import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
+import com.amazonaws.services.sqs.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/java/example_code/sqs/src/main/java/aws/example/sqs
+//https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code
 public class AwsMessageHelper {
     private String queueName;
     private AmazonSQS queue;
@@ -26,9 +25,10 @@ public class AwsMessageHelper {
         AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
 
         // Creating a Queue
-        CreateQueueRequest create_request = new CreateQueueRequest(queueName)
-                .addAttributesEntry("DelaySeconds", "0")
-                .addAttributesEntry("MessageRetentionPeriod", "86400");
+        CreateQueueRequest create_request = new CreateQueueRequest(queueName + ".fifo")
+//                .addAttributesEntry("DelaySeconds", "0")
+                .addAttributesEntry(QueueAttributeName.FifoQueue.name(), "true")
+                .addAttributesEntry(QueueAttributeName.MessageRetentionPeriod.name(), "86400");
 
         try {
             CreateQueueResult result = sqs.createQueue(create_request);
@@ -47,6 +47,9 @@ public class AwsMessageHelper {
         queue.deleteQueue(this.queueUrl);
     }
     public void Send(String message) {
+        SendMessageRequest msgRequest = new SendMessageRequest();
+        msgRequest.setMessageBody(message);
+        msgRequest.setMessageGroupId("group1");
         queue.sendMessage(queueUrl, message);
     }
 

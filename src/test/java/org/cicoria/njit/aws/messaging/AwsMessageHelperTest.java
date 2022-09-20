@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AwsMessageHelperTest {
@@ -28,12 +29,11 @@ class AwsMessageHelperTest {
 
     @Test
     void sendTenMessages() {
-        var helper = new AwsMessageHelper("foobar1");
+        var helper = new AwsMessageHelper("foobar1.fifo");
 
         for (int i = 0; i < 10; i++){
             helper.Send("Message: " + i);
         }
-
         helper.Delete();
     }
 
@@ -41,9 +41,10 @@ class AwsMessageHelperTest {
     @Test
     void sendTenAndGetMessages() {
         var helper = new AwsMessageHelper("foobar2");
-
+        ArrayList<String> expected = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             helper.Send("Message: " + i);
+            expected.add("Message: " + i);
         }
 
         try {
@@ -60,8 +61,8 @@ class AwsMessageHelperTest {
         var result = helper.Get();
 
         assertEquals(10, actual.size(), "retrieve 10 messages");
-
-        helper.Delete();
+        assertArrayEquals(expected.toArray(), actual.toArray());
+//        helper.Delete();
 
     }
 }
