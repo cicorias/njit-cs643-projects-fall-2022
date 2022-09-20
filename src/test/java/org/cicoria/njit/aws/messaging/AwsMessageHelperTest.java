@@ -58,7 +58,6 @@ class AwsMessageHelperTest {
             var m = helper.Get();
             actual.add(m.get(0));
         }
-        var result = helper.Get();
 
         assertEquals(10, actual.size(), "retrieve 10 messages");
         assertArrayEquals(expected.toArray(), actual.toArray());

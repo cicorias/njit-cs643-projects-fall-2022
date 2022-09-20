@@ -10,7 +10,7 @@ public class Initiator {
     private static Logger logger = LoggerFactory.getLogger(Initiator.class);
 
     public void Run(String bucket, String region, String label){
-        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
+        // System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "TRACE");
         AwsS3Helper s3Helper = new AwsS3Helper();
         //get list of each file
 

@@ -14,7 +14,6 @@ public class AwsMessageHelper {
     private SqsClient queue;
 
     private String queueUrl;
-    private boolean ready = false;
     public AwsMessageHelper(String queueName){
         this.queueName = queueName + ".fifo";
         create();
@@ -37,7 +36,7 @@ public class AwsMessageHelper {
                 .build();
 
         try {
-            CreateQueueResponse result =  this.queue.createQueue(create_request);
+            this.queue.createQueue(create_request);
         } catch (QueueNameExistsException e) {
             // do nothing..
         }
@@ -47,7 +46,6 @@ public class AwsMessageHelper {
                 .build();
 
         this.queueUrl = this.queue.getQueueUrl(getQueueRequest).queueUrl();
-        this.ready = true;
     }
 
     public void Delete() {

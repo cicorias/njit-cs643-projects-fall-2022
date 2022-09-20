@@ -10,8 +10,6 @@
 
     <properties>
         <java.version>11</java.version>
-<!--        <maven.compiler.source>${java.version}</maven.compiler.source>-->
-<!--        <maven.compiler.target>${java.version}</maven.compiler.target>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.shade.plugin.version>3.4.0</maven.shade.plugin.version>
         <aws-java-bom-version>2.17.276</aws-java-bom-version>
@@ -20,6 +18,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.25</version>
+            </dependency>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
@@ -90,12 +93,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -103,17 +100,14 @@
             <version>1.7.25</version>
         </dependency>
 
-
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
-        <dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+        <!-- <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j-version}</version>
-            <scope>runtime</scope>
+            <version>2.19.0</version>
+            <scope>test</scope>
         </dependency> -->
-
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -154,6 +148,19 @@
                 <version>${maven.shade.plugin.version}</version>
                 <configuration>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>module-info.class</exclude>
+                                <exclude>META-INF/NOTICE</exclude>
+                                <exclude>META-INF/*.txt</exclude> -->
+                                <exclude>META-INF/LICENSE</exclude>
+                                <exclude>META-INF/io.netty.versions.properties</exclude>
+                                <exclude>META-INF/DEPENDENCIES</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                 </configuration>
                 <executions>
                     <execution>
@@ -164,70 +171,6 @@
                     </execution>
                 </executions>
             </plugin>
-        
-
-
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.4.2</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>org.cicoria.njit.Program</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>dep-program-fat-jar</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-program-fat-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-              </plugin> -->
-
-              <!-- <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.4.0</version>
-                <configuration>
-                  <filters>
-                    <filter>
-                      <artifact>*:*</artifact>
-                      <excludes>
-                        <exclude>META-INF/*.SF</exclude>
-                        <exclude>META-INF/*.DSA</exclude>
-                        <exclude>META-INF/*.RSA</exclude>
-                      </excludes>
-                    </filter>
-                  </filters>
-                </configuration>
-              </plugin> -->
-
-              <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>org.cicoria.njit.Program</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-              </plugin> -->
-
-
         </plugins>
     </build>
 

@@ -32,3 +32,7 @@ index, recognized text
 * Use AWS Rekognition for Image Classification
 * Use AWS Rekognition for Text Recognition
 * 
+
+
+# Notes
+Resolve multiple bindings [https://www.baeldung.com/slf4j-classpath-multiple-bindings](https://www.baeldung.com/slf4j-classpath-multiple-bindings)

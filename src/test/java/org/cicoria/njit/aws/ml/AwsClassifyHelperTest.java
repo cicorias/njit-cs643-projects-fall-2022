@@ -12,7 +12,7 @@ class AwsClassifyHelperTest {
 
         String bucket = "test-bucket-njit";
         String key = "1.jpg";
-        String expected = "Car";
+        // String expected = "Car";
         int expectedValueMin = 90;
         var rv = helper.GetLabelsForS3Image(bucket, key);
 

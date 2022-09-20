@@ -21,11 +21,4 @@ class AwsS3HelperTest {
         assertEquals(10, rv.size());
 
     }
-
-    @org.junit.jupiter.api.Test
-    void getFile() {
-        AwsS3Helper helper = new AwsS3Helper();
-
-        var rv = helper.getFile("njit-cs-643", "1.jpg");
-    }
 }

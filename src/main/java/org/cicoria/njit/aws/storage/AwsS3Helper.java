@@ -7,11 +7,9 @@ import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 
 //https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/java/example_code/s3/src/main/java/aws/example/s3/ListObjects.java
@@ -37,15 +35,5 @@ public class AwsS3Helper {
             rv.put(os.key(), bucket);
         }
         return rv;
-    }
-
-
-    public Stream getFile(String bucket, String objectKey) {
-//        S3Object s3object = S3Object
-//                .builder()
-//                .bucket(bucket)
-//                .name(objectKey)
-//                .build();
-        return null;
     }
 }
