@@ -10,6 +10,6 @@ public class Program {
 
         initiator.Run(bucket, region, "car");
 
-        System.out.println("Hello world!");
+        System.out.println("Hello worddld!");
     }
 }
