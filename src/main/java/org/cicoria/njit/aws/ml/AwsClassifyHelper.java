@@ -23,7 +23,7 @@ public class AwsClassifyHelper {
            S3Object s3Object = S3Object.builder()
                    .bucket(bucket)
                    .name(objectKey)
-                   .build() ;
+                   .build();
 
            Image myImage = Image.builder()
                    .s3Object(s3Object)
