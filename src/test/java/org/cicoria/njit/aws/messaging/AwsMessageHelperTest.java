@@ -21,7 +21,7 @@ class AwsMessageHelperTest {
     }
     @Test
     void sendOne() {
-        var helper = new AwsMessageHelper("foobar0");
+        var helper = new AwsMessageHelper("foobar0" + System.currentTimeMillis());
         helper.Send("hello world");
         helper.Delete();
     }
@@ -29,7 +29,7 @@ class AwsMessageHelperTest {
 
     @Test
     void sendTenMessages() {
-        var helper = new AwsMessageHelper("foobar1.fifo");
+        var helper = new AwsMessageHelper("foobar1" + System.currentTimeMillis());
 
         for (int i = 0; i < 10; i++){
             helper.Send("Message: " + i);
@@ -40,7 +40,7 @@ class AwsMessageHelperTest {
 
     @Test
     void sendTenAndGetMessages() {
-        var helper = new AwsMessageHelper("foobar2");
+        var helper = new AwsMessageHelper("foobar2" + System.currentTimeMillis());
         ArrayList<String> expected = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             helper.Send("Message: " + i);
@@ -62,7 +62,7 @@ class AwsMessageHelperTest {
 
         assertEquals(10, actual.size(), "retrieve 10 messages");
         assertArrayEquals(expected.toArray(), actual.toArray());
-//        helper.Delete();
+        helper.Delete();
 
     }
 }

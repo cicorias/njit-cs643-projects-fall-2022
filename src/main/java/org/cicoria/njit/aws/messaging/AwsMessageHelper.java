@@ -1,65 +1,92 @@
 package org.cicoria.njit.aws.messaging;
 
-import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
-import com.amazonaws.services.sqs.model.SendMessageRequest;
-import com.amazonaws.services.sqs.model.*;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-//https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/java/example_code/sqs/src/main/java/aws/example/sqs
 //https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code
 public class AwsMessageHelper {
     private String queueName;
-    private AmazonSQS queue;
+    private SqsClient queue;
 
     private String queueUrl;
     private boolean ready = false;
     public AwsMessageHelper(String queueName){
-        this.queueName = queueName;
-        create(queueName);
+        this.queueName = queueName + ".fifo";
+        create();
     }
 
-    private void create(String queueName) {
-        AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+    private void create() {
+        this.queue = SqsClient.builder()
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         // Creating a Queue
-        CreateQueueRequest create_request = new CreateQueueRequest(queueName + ".fifo")
-//                .addAttributesEntry("DelaySeconds", "0")
-                .addAttributesEntry(QueueAttributeName.FifoQueue.name(), "true")
-                .addAttributesEntry(QueueAttributeName.MessageRetentionPeriod.name(), "86400");
+        HashMap<QueueAttributeName, String> attributes = new HashMap<>();
+        attributes.put(QueueAttributeName.FIFO_QUEUE, "true");
+        attributes.put(QueueAttributeName.MESSAGE_RETENTION_PERIOD, "86400");
+        attributes.put(QueueAttributeName.CONTENT_BASED_DEDUPLICATION, "true");
+        CreateQueueRequest create_request = CreateQueueRequest
+                .builder()
+                .queueName(queueName)
+                .attributes(attributes)
+                .build();
 
         try {
-            CreateQueueResult result = sqs.createQueue(create_request);
-        } catch (AmazonSQSException e) {
-            if (!e.getErrorCode().equals("QueueAlreadyExists")) {
-                throw e;
-            }
+            CreateQueueResponse result =  this.queue.createQueue(create_request);
+        } catch (QueueNameExistsException e) {
+            // do nothing..
         }
 
+        GetQueueUrlRequest getQueueRequest = GetQueueUrlRequest.builder()
+                .queueName(this.queueName)
+                .build();
+
+        this.queueUrl = this.queue.getQueueUrl(getQueueRequest).queueUrl();
         this.ready = true;
-        this.queue = sqs;
-        this.queueUrl = queue.getQueueUrl(this.queueName).getQueueUrl();
     }
 
     public void Delete() {
-        queue.deleteQueue(this.queueUrl);
+        DeleteQueueRequest request = DeleteQueueRequest
+                .builder()
+                .queueUrl(this.queueUrl)
+                .build();
+
+        queue.deleteQueue(request);
     }
     public void Send(String message) {
-        SendMessageRequest msgRequest = new SendMessageRequest();
-        msgRequest.setMessageBody(message);
-        msgRequest.setMessageGroupId("group1");
-        queue.sendMessage(queueUrl, message);
+        SendMessageRequest msgRequest = SendMessageRequest
+                .builder()
+                .messageBody(message)
+                .queueUrl(this.queueUrl)
+                .messageGroupId("group1")
+                .build();
+
+        queue.sendMessage(msgRequest);
     }
 
     public List<String> Get() {
-        List<Message> messages = queue.receiveMessage(queueUrl).getMessages();
+        ReceiveMessageRequest request = ReceiveMessageRequest
+                .builder()
+                .queueUrl(this.queueUrl)
+                .build();
+
+
+        List<Message> messages = queue.receiveMessage(request).messages();
         List<String> messageValues = new ArrayList<>();
         // delete messages from the queue
         for (Message m : messages) {
-            messageValues.add(m.getBody());
-            queue.deleteMessage(queueUrl, m.getReceiptHandle());
+            messageValues.add(m.body());
+            DeleteMessageRequest deleteMessage = DeleteMessageRequest
+                    .builder()
+                    .queueUrl(this.queueUrl)
+                    .receiptHandle(m.receiptHandle())
+                    .build();
+            queue.deleteMessage(deleteMessage);
         }
 
         return messageValues;
