@@ -23,9 +23,10 @@ class AwsS3HelperTest {
     }
 
     @org.junit.jupiter.api.Test
-    void getFile() {
+    void getFilesNoRegion() throws MalformedURLException {
         AwsS3Helper helper = new AwsS3Helper();
+        var rv = helper.getFiles("njit-cs-643");
+        assertEquals(10, rv.size());
 
-        var rv = helper.getFile("njit-cs-643", "1.jpg");
     }
 }
