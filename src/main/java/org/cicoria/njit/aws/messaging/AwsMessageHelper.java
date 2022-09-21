@@ -29,6 +29,7 @@ public class AwsMessageHelper {
         attributes.put(QueueAttributeName.FIFO_QUEUE, "true");
         attributes.put(QueueAttributeName.MESSAGE_RETENTION_PERIOD, "86400");
         attributes.put(QueueAttributeName.CONTENT_BASED_DEDUPLICATION, "true");
+        attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "5");
         CreateQueueRequest create_request = CreateQueueRequest
                 .builder()
                 .queueName(queueName)
@@ -55,6 +56,7 @@ public class AwsMessageHelper {
                 .build();
 
         queue.deleteQueue(request);
+        this.Close();
     }
     public void Send(String message) {
         SendMessageRequest msgRequest = SendMessageRequest
@@ -67,10 +69,22 @@ public class AwsMessageHelper {
         queue.sendMessage(msgRequest);
     }
 
-    public List<String> Get() {
+    public void Close() {
+        queue.close();
+    }
+
+
+    public List<String> Get(){
+        return this.Get(1);
+    }
+
+    public List<String> Get(int waitTimeSeconds) {
+
         ReceiveMessageRequest request = ReceiveMessageRequest
                 .builder()
                 .queueUrl(this.queueUrl)
+                .waitTimeSeconds(waitTimeSeconds)
+                // .maxNumberOfMessages(5)  //TODO: arbitrary number
                 .build();
 
 
@@ -89,4 +103,6 @@ public class AwsMessageHelper {
 
         return messageValues;
     }
+
+
 }

@@ -11,18 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-//https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/java/example_code/s3/src/main/java/aws/example/s3/ListObjects.java
 //https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code
 public class AwsS3Helper {
 
     public Map<String, String> getFiles(String bucket, String region) {
         Map<String, String> rv = new HashMap<String, String>();
 
-        S3Client s3 = S3Client.builder()
-                .region(Region.of(region))
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+        S3Client s3 = getClient(region);
 
         ListObjectsRequest listObjects = ListObjectsRequest
                 .builder()
@@ -36,4 +31,22 @@ public class AwsS3Helper {
         }
         return rv;
     }
+
+    public Map<String, String> getFiles(String bucket) {
+        return getFiles(bucket, null);
+    }
+
+    private S3Client getClient(String region) {
+        if (null == region) {
+            return S3Client.builder()
+                    .credentialsProvider(ProfileCredentialsProvider.create())
+                    .build();
+        }
+        return S3Client.builder()
+                .region(Region.of(region))
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+    }
+
 }
