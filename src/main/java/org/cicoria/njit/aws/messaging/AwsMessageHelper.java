@@ -4,18 +4,27 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 //https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code
 public class AwsMessageHelper {
+    private static Logger logger = LoggerFactory.getLogger(AwsMessageHelper.class);
     private String queueName;
     private SqsClient queue;
+    private String nonce;
 
     private String queueUrl;
     public AwsMessageHelper(String queueName){
         this.queueName = queueName + ".fifo";
+        this.nonce = String.valueOf(System.currentTimeMillis());
         create();
     }
 
@@ -28,7 +37,7 @@ public class AwsMessageHelper {
         HashMap<QueueAttributeName, String> attributes = new HashMap<>();
         attributes.put(QueueAttributeName.FIFO_QUEUE, "true");
         attributes.put(QueueAttributeName.MESSAGE_RETENTION_PERIOD, "86400");
-        attributes.put(QueueAttributeName.CONTENT_BASED_DEDUPLICATION, "true");
+        // attributes.put(QueueAttributeName.CONTENT_BASED_DEDUPLICATION, "true");
         attributes.put(QueueAttributeName.RECEIVE_MESSAGE_WAIT_TIME_SECONDS, "5");
         CreateQueueRequest create_request = CreateQueueRequest
                 .builder()
@@ -64,6 +73,7 @@ public class AwsMessageHelper {
                 .messageBody(message)
                 .queueUrl(this.queueUrl)
                 .messageGroupId("group1")
+                .messageDeduplicationId(getMessageDeduplicationId(message))
                 .build();
 
         queue.sendMessage(msgRequest);
@@ -104,5 +114,29 @@ public class AwsMessageHelper {
         return messageValues;
     }
 
+    private String getMessageDeduplicationId(String message) {
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(
+                (message + this.nonce).getBytes(StandardCharsets.UTF_8));
+                return bytesToHex(encodedhash);
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            logger.error(e.getMessage());
+        }
+        return String.valueOf(System.currentTimeMillis());
+    }
 
+    private static String bytesToHex(byte[] hash) {
+        StringBuilder hexString = new StringBuilder(2 * hash.length);
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if(hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
 }
