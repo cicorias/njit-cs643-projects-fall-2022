@@ -94,7 +94,6 @@ public class AwsMessageHelper {
                 .builder()
                 .queueUrl(this.queueUrl)
                 .waitTimeSeconds(waitTimeSeconds)
-                // .maxNumberOfMessages(5)  //TODO: arbitrary number
                 .build();
 
 
@@ -122,9 +121,9 @@ public class AwsMessageHelper {
                 (message + this.nonce).getBytes(StandardCharsets.UTF_8));
                 return bytesToHex(encodedhash);
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
             logger.error(e.getMessage());
         }
+        //NOTE: just a backup...
         return String.valueOf(System.currentTimeMillis());
     }
 

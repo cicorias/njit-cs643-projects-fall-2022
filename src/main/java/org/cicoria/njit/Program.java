@@ -39,28 +39,33 @@ public class Program {
             main.run();
         } catch (ParameterException e) {
             System.err.println(e.getMessage());
+            logger.error(e.getMessage());
             e.usage();
             System.exit(1);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             System.exit(2);
         }
+
+        logger.info("exiting run....");
 
     }
 
     private void run() throws InterruptedException {
-        System.out.println("Running with processor: " + processor);
+        logger.info("Running with processor: {}", processor);
 
         if (processor.equalsIgnoreCase("initiator")) {
-            Initiator initiator = new Initiator(bucket, region, label, queue);
+            Initiator initiator = new Initiator(region, bucket, queue, label);
             initiator.run();
+
         } else {
             Worker worker = new Worker(region, bucket, queue);
             worker.run();
+            
         }
 
-
-        System.out.println("Hello worddld!");
+        logger.info("completed run of {}", processor);
     }
 
 }

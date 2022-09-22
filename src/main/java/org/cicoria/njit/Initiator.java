@@ -14,7 +14,7 @@ public class Initiator {
     private String label;
     private String queueName;
 
-    public Initiator(String bucket, String region, String label, String queueName) {
+    public Initiator(String region, String bucket, String queueName,String label) {
         this.bucket = bucket;
         this.region = region;
         this.label = label;

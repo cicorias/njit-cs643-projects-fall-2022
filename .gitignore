@@ -89,3 +89,6 @@ target/
 .idea/azure/azureSettings.xml
 .idea/aws.xml
 .idea/remote-targets.xml
+
+
+out*

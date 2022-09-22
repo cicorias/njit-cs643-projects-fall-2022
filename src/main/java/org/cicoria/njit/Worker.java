@@ -1,7 +1,12 @@
 package org.cicoria.njit;
 
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.cicoria.njit.aws.messaging.AwsMessageHelper;
-import org.cicoria.njit.aws.ml.AwsClassifyHelper;
 import org.cicoria.njit.aws.ml.AwsTextRecognizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +55,30 @@ public class Worker {
         }
 
         logger.info("writing output");
-        logger.info(sb.toString());
+        logger.debug(sb.toString());
+
+        writeOutput(sb);
+
+        logger.info("worker done...");
+
+
+    }
+
+    void writeOutput(StringBuilder sb) {
+        String pattern = "yyyy-MM-dd-HH-mm-ss";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        String date = simpleDateFormat.format(new Date());
+        String fileName = "output-" + date + ".txt";
+
+        try (OutputStream os = new FileOutputStream(fileName)) {
+            logger.info("output written to file {}", fileName);
+            os.write(sb.toString().getBytes(), 0, sb.toString().length());
+            os.write(System.lineSeparator().getBytes(), 0, System.lineSeparator().length());
+            os.flush();
+
+        } catch (Exception e) {
+            logger.error("error writing output", e);
+        }
+
     }
 }
