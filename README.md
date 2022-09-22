@@ -27,6 +27,31 @@ cd njit-cs643-projects-fall-2022
 
 ```
 
+#### AWS Credentials
+There needs to be in the `~/.aws` path two files
+1. `~/.aws/config`
+1. `~/.aws/credentials`
+
+
+>NOTE: Obtain the contents from the Lab Environment [https://awsacademy.instructure.com/](https://awsacademy.instructure.com/).
+
+The credentials are located after you "start the lab" under "Learner Lab -> AWS Details -> AWS CLI".
+
+##### 
+```
+[default]
+region = us-east-1
+```
+
+####
+
+```
+[default]
+aws_access_key_id=dddd
+aws_secret_access_key=ddddd
+aws_session_token=SOME REALLY LONG KEY M=
+```
+
 While order really doesn't matter, it doesn't hurt to start the Worker role first as it just polls looking for messages.
 ### From Machine 1 (Worker)
 >NOTE: The worker will poll the queue and continue forever until it sees any messages or the last `-1` message to terminate.
