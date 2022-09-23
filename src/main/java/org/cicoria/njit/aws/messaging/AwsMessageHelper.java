@@ -30,7 +30,6 @@ public class AwsMessageHelper {
 
     private void create() {
         this.queue = SqsClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
         // Creating a Queue
