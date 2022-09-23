@@ -108,3 +108,21 @@ index, recognized text
 
 # Notes
 Resolve multiple bindings [https://www.baeldung.com/slf4j-classpath-multiple-bindings](https://www.baeldung.com/slf4j-classpath-multiple-bindings)
+
+
+# Cloud init - user data for EC2
+
+```bash
+#!/bin/bash
+yum update -y
+amazon-linux-extras install java-openjdk11 -y
+yum install git -y
+mkdir /njit
+chmod 777 njit
+cd /njit
+git clone https://github.com/cicorias/njit-cs643-projects-fall-2022.git
+chmod -R 777 *
+cd njit-cs643-projects-fall-2022
+./mvnw clean package -DskipTests=true
+chmod -R 777 *
+```
