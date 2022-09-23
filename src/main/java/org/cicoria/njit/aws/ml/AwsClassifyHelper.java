@@ -13,7 +13,6 @@ public class AwsClassifyHelper {
     private RekognitionClient rekognitionClient;
     public AwsClassifyHelper(){
         rekognitionClient = RekognitionClient.builder()
-            .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
     }
 

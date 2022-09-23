@@ -11,7 +11,6 @@ public class AwsTextRecognizer {
     private RekognitionClient rekognitionClient;
     public AwsTextRecognizer(){
         rekognitionClient = RekognitionClient.builder()
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
     }
 
