@@ -39,12 +39,10 @@ public class AwsS3Helper {
     private S3Client getClient(String region) {
         if (null == region) {
             return S3Client.builder()
-                    .credentialsProvider(ProfileCredentialsProvider.create())
                     .build();
         }
         return S3Client.builder()
                 .region(Region.of(region))
-                .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
     }
