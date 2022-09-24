@@ -174,6 +174,15 @@ index, recognized text
 # Notes
 Resolve multiple bindings [https://www.baeldung.com/slf4j-classpath-multiple-bindings](https://www.baeldung.com/slf4j-classpath-multiple-bindings)
 
+# alternate download
+
+```bash
+curl -OL https://github.com/cicorias/njit-cs643-projects-fall-2022/archive/refs/heads/main.zip
+unzip main.zip
+chmod -R 777 njit-cs643-projects-fall-2022-main
+cd njit-cs643-projects-fall-2022-main
+```
+
 
 # Cloud init - user data for EC2
 
