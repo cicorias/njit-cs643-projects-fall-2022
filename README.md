@@ -183,6 +183,20 @@ chmod -R 777 njit-cs643-projects-fall-2022-main
 cd njit-cs643-projects-fall-2022-main
 ```
 
+## cloud-init
+```bash
+#!/bin/bash
+yum update -y
+amazon-linux-extras install java-openjdk11 -y
+yum install git -y
+
+curl -OL https://github.com/cicorias/njit-cs643-projects-fall-2022/archive/refs/heads/main.zip
+unzip main.zip
+chmod -R 777 njit-cs643-projects-fall-2022-main
+cd njit-cs643-projects-fall-2022-main
+./mvnw clean package -DskipTests=true
+chmod -R 777 *
+```
 
 # Cloud init - user data for EC2
 
